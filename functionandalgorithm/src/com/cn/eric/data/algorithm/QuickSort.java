@@ -73,12 +73,12 @@ public class QuickSort {
 		int p = Math.abs(random.nextInt() % (r - l + 1) + l);
 		swap(arr, p, l);
 		int target = arr[l];
-		int lt = l+1;	//[l,lt]<v
+		int lt = l;	//[l,lt]<v
 		int gt = r;	//[gt,r]>v
 		int i=l+1;	//else
-		while(i<gt){
+		while(i<=gt){
 			if(arr[i]<target){
-				swap(arr,i,lt);
+				swap(arr,i,lt+1);
 				i++;
 				lt++;
 			}

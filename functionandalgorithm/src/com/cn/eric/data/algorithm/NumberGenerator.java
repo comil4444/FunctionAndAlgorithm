@@ -60,6 +60,14 @@ public class NumberGenerator{
 		return target;
 	}
 	
+	public static int[] copy(int arr[],int start,int end){
+		int target[] = new int[end-start+1];
+		for(int i=0;i<target.length;i++){
+			target[i]=arr[i+start];
+		}
+		return target;
+	}
+	
 	private static void swap(int[] arr, int i, int minIndex) {
 		int temp = arr[i];
 		arr[i] = arr[minIndex];
