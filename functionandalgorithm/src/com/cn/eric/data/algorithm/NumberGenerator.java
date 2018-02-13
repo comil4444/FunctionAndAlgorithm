@@ -11,7 +11,7 @@ public class NumberGenerator{
 		Random random = new Random(new Date().getTime());
 		int[] target = new int[n];
 		for(int i=0;i<n;i++){
-			target[i] = random.nextInt()%(scopeHigh-scopeLow+1)+scopeLow;
+			target[i] = Math.abs(random.nextInt()%(scopeHigh-scopeLow+1))+scopeLow;
 		}
 		return target;
 	}

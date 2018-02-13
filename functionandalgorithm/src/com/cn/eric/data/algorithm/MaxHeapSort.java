@@ -19,7 +19,7 @@ class MaxHeap{
 	/*
 	 * 思路：
 	 * 先将序列排序成maxHeap,然后将第一个元素arr[0](最大值)与最后一个元素换位置。
-	 * 然后将排除最后一个元素的序列重新排序成maxHeap,然后在交换以此类推。
+	 * 然后将排除最后一个元素的序列重新排序成maxHeap,由于其余数据结构是ok的，仅需重新排列第一个元素即可,然后在交换以此类推。
 	 */
 	public static void maxHeapSort(int[] arr,int n){
 		

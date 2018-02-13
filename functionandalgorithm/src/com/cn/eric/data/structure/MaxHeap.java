@@ -25,7 +25,7 @@ public class MaxHeap{
 	 * 1.叶子节点因为只有一个节点，所以认为是maxHeap.然后从第一个非叶子节点算起,索引值为n/2(n为数组数量)，然后以此类推进行shiftDown操作直至最后最后一个元素(=1,而不是0)
 	 */
 	public MaxHeap(int[] arr,int n){
-		arr = new int[n+1];
+		this.arr = new int[n+1];
 		count = n;
 		this.capacity = n+1;
 		
