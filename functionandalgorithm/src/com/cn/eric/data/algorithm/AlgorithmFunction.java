@@ -1,16 +1,78 @@
 package com.cn.eric.data.algorithm;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Random;
+
+import com.cn.eric.data.structure.BST;
 
 public class AlgorithmFunction {
 
 	public static void main(String[] args) {
 //		testFindKMaxValue();
-		int[] arr = NumberGenerator.generate(20, 0, 100);
-		NumberGenerator.printArray(arr);
-		int[] n = findMthMaxValue(arr,5);
-		NumberGenerator.printArray(n);
+//		int[] arr = NumberGenerator.generate(20, 0, 100);
+//		NumberGenerator.printArray(arr);
+//		int[] n = findMthMaxValue(arr,5);
+//		NumberGenerator.printArray(n);
+//		int[] arr = NumberGenerator.generate(100, 0, 100);
+//		InsertionSort.insertionSort(arr, arr.length);
+//		NumberGenerator.printArray(arr);
+//		int k = binarySearch(arr,1);
+//		System.out.println(k);
+		BST bst = new BST();
+		bst.insert(10, "10");
+		bst.insert(5, "5");
+		bst.insert(21, "21");
+		bst.insert(2, "2");
+		bst.insert(6, "6");
+		bst.insert(17, "17");
+		bst.insert(25, "25");
+		bst.insert(1, "1");
+		bst.insert(3, "3");
+		bst.insert(7, "7");
+		bst.insert(12, "12");
+		bst.insert(18, "18");
+		bst.insert(23, "23");
+		bst.insert(40, "40");
+		bst.insert(19, "19");
+		
+		System.out.println(bst.floor(11));
+		System.out.println(bst.floor(4));
+		System.out.println(bst.floor(8));
+		System.out.println(bst.floor(22));
+		System.out.println(bst.floor(0));
+		System.out.println(bst.floor(50));
+		
+		System.out.println("---");
+		
+		System.out.println(bst.ceil(11));
+		System.out.println(bst.ceil(4));
+		System.out.println(bst.ceil(8));
+		System.out.println(bst.ceil(22));
+		System.out.println(bst.ceil(0));
+		System.out.println(bst.ceil(50));
+		
+		
+	}
+
+	/*
+	 * 尋找k在arr的index，如果不存在返回-1
+	 */
+	private static int binarySearch(int[] arr,int k){
+		return __binarySearch(arr,0,arr.length-1,k);
+	}
+	
+	//從[0,arr.length-1]的區間內尋找k
+	private static int __binarySearch(int[] arr, int i, int j, int k) {
+		if(i>j)
+			return -1;
+		int mid = (i+j)>>2;
+		if(arr[mid]<k){
+			return __binarySearch(arr,mid+1,j,k);
+		}else if(arr[mid]>k){
+			return __binarySearch(arr,i,mid-1,k);
+		}else
+			return mid;
 	}
 
 	private static void testFindKMaxValue() {
