@@ -25,15 +25,20 @@ public class BST<K extends Comparable, V> {
 		root = insert(root, k, v);
 	}
 
-	// 插入K,V到以root爲根節點的子樹中
+	// 插入K,V到以root爲根節點的子樹中,返回处理后的当前节点
 	private Node insert(Node root, K k, V v) {
 		if (root == null) {
 			count++;
 			root = new Node(k, v);
-		} else if (k.compareTo(root.k) > 0)
+		} else if (k.compareTo(root.k) > 0) {
 			root.right = insert(root.right, k, v);
-		else if (k.compareTo(root.k) < 0)
+			root.countUnderNode++;
+		}
+		
+		else if (k.compareTo(root.k) < 0) {
 			root.left = insert(root.left, k, v);
+			root.countUnderNode++;
+		}
 		else {
 			root.v = v;
 		}
@@ -54,6 +59,25 @@ public class BST<K extends Comparable, V> {
 			return search(root.left, k);
 		else
 			return (V) root.v;
+	}
+	
+	private Node get(K k) {
+		if(contains(k)) {
+			return get(root,k);
+		}
+		return null;
+	}
+	
+	// 查找以node为根节点的k对应的Node
+	private Node get(Node node,K k) {
+		if (node == null)
+			return null;
+		if (node.k.compareTo(k) < 0)
+			return get(node.right, k);
+		else if (node.k.compareTo(k) > 0)
+			return get(node.left, k);
+		else
+			return node;
 	}
 
 	public boolean contains(K k) {
@@ -147,11 +171,13 @@ public class BST<K extends Comparable, V> {
 	private Node deleteMax(Node root) {
 		if (root.right != null) {
 			root.right = deleteMax(root.right);
+			root.countUnderNode--;
 			return root;
 		}
 		if (root.left == null) {
 			return null;
 		} else {
+			root.countUnderNode--;
 			return root.left;
 		}
 	}
@@ -159,18 +185,26 @@ public class BST<K extends Comparable, V> {
 	// 刪除該節點下的最小值節點,返回當前root節點被處理後的結果
 	private Node deleteMin(Node root) {
 		if (root.left != null) {
-			root.left = deleteMax(root.left);
+			root.left = deleteMin(root.left);
+			root.countUnderNode--;
 			return root;
 		}
 		if (root.right == null) {
 			return null;
 		} else {
+			root.countUnderNode--;
 			return root.right;
 		}
 	}
 
+	public int getNodeCount() {
+		return this.count;
+	}
+	
 	public void remove(K k) {
-		remove(root, k);
+		if(this.contains(k)) {
+			remove(root, k);
+		}
 	}
 
 	// 刪除以Node爲根子樹的k節點，返回Node處理後的根節點
@@ -179,29 +213,35 @@ public class BST<K extends Comparable, V> {
 			return null;
 		if (k.compareTo(node.k) < 0) {
 			node.left = remove(node.left, k);
+			node.countUnderNode--;
 			return node;
 		}
 		if (k.compareTo(node.k) > 0) {
 			node.right = remove(node.right, k);
+			node.countUnderNode--;
 			return node;
 		}
 		// 左子樹爲空
 		if (node.left == null) {
 			count--;
+			node.countUnderNode--;
 			return node.right;
 		}
 		// 右子樹爲空
 		else if (node.right == null) {
 			count--;
+			node.countUnderNode--;
 			return node.left;
 		} else {
-			// 左右子樹均有值，尋找左子樹的最大值替代target節點，然後刪除target節點,或者找到右子樹最小值來替代target節點
+			// 左右子樹均有值，尋找左子樹的最大值替代target節點，然後刪除target節點和那个最大值节点 OR 找到右子樹最小值來替代target節點
 			Node left = findMax(node.left);
 
 			deleteMax(node.left);
+			
 			left.right = node.right;
 			left.left = node.left;
-
+			left.countUnderNode = node.countUnderNode;
+			left.countUnderNode--;
 			return left;
 		}
 	}
@@ -272,18 +312,39 @@ public class BST<K extends Comparable, V> {
 		}
 		return null;
 	}
+	
+	//返回该K在BST中的排名，如果不存在返回-1
+//	public int getRank(K k) {
+//		if(contains(k)) {
+//			int rank = 0;
+//			Node temp = root;
+//			while(temp!=null) {
+//				if(temp.k.compareTo(k)>0) {
+//					temp = temp.right;
+//					rank += temp.countUnderNode;
+//				}
+//				else if(temp.k.compareTo(k)<0) {
+//					temp = temp.left;
+//					rank
+//				}
+//			}
+//		}
+//		return -1;
+//	}
 
 	private class Node<K extends Comparable, V> {
 		K k;
 		V v;
 		Node left;
 		Node right;
+		int countUnderNode=0;
 
 		public Node() {
 			k = null;
 			v = null;
 			left = null;
 			right = null;
+			countUnderNode++;
 		}
 
 		public Node(K k, V v) {
@@ -291,6 +352,7 @@ public class BST<K extends Comparable, V> {
 			this.v = v;
 			this.left = null;
 			this.right = null;
+			countUnderNode++;
 		}
 	}
 
