@@ -36,6 +36,8 @@ public class AlgorithmFunction {
 		bst.insert(40, "40");
 		bst.insert(19, "19");
 		
+		System.out.println(bst);
+		
 		System.out.println(bst.floor(11));
 		System.out.println(bst.floor(4));
 		System.out.println(bst.floor(8));
