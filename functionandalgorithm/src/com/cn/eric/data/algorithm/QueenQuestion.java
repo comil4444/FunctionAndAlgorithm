@@ -24,20 +24,21 @@ public class QueenQuestion {
 			if(rows[k]!=true) {
 				q[colNum] = k;
 				process(colNum+1);
+				if(colNum==QUEEN_NUMBER-1) {
+					printBoard(q);
+					count++;
+					System.out.println("----"+count+"----");
+				}
 			}
 		}
-		if(colNum==QUEEN_NUMBER-1) {
-			printBoard(q);
-			count++;
-			System.out.println("----"+count+"----");
-		}
+		
 	}
 
 	private static void printBoard(int[] q) {
 		for(int i=0;i<QUEEN_NUMBER;i++) {
 			for(int j=0;j<QUEEN_NUMBER;j++) {
-				if(q[i]==j) 
-					System.err.print(" 0 ");
+				if(q[j]==i) 
+					System.out.print(" 0 ");
 				else
 					System.out.print(" + ");
 			}
