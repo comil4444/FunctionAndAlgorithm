@@ -1,6 +1,7 @@
 package com.cn.eric.data.structure;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +15,8 @@ public class DijKstra<Weight extends Number> {
 	
 	
 	/*
+	 * 前提没有负权边
+	 * 
 	 * 1.	记录source到每个顶点的最小距离
 	 * 2.	记录source到每个顶点的具体路径
 	 * 
@@ -53,15 +56,16 @@ public class DijKstra<Weight extends Number> {
 		
 		while(!allChecked(isChecked)){
 			int s = findRemainingMin(list);
-			isChecked[s] = true;
 			temp = this.gragh.getConnectedEdges(s);
 			for(Edge e:temp){
 				int next = e.other(s);
-				if(next == source || isChecked[next])
+				//第一次source的时候已经set值了
+				//在考虑next的时候已经更新过了
+				if(next==source||isChecked[next])
 					continue;
 				if(list.get(next)==null){
 					list.set(next, e);
-					distTo.set(next, (Weight) e.getWt());
+					distTo.set(next, (Weight) (1==1?(e.getWt().doubleValue()+distTo.get(s).doubleValue()):distTo.get(s)));
 					continue;
 				}
 				//松弛操作
@@ -69,8 +73,9 @@ public class DijKstra<Weight extends Number> {
 				if(newValue-distTo.get(next).doubleValue()<0){
 					list.set(next, e);
 				}
-				distTo.set(next, (Weight)((newValue-distTo.get(next).doubleValue())>0?newValue:distTo.get(next)));
+				distTo.set(next, (Weight)((newValue-distTo.get(next).doubleValue())<0?newValue:distTo.get(next)));
 			}
+			isChecked[s] = true;
 		}
 	}
 	
@@ -93,6 +98,7 @@ public class DijKstra<Weight extends Number> {
 		}
 		
 		target.add(this.s);
+		Collections.reverse(target);
 		return target;
 	}
 		
@@ -119,7 +125,7 @@ public class DijKstra<Weight extends Number> {
 	}
 
 	public static void main(String[] args) {
-		int vNum = 7;
+		int vNum = 3;
 		List<Edge> list = new ArrayList<Edge>();
 		Random ran = new Random(System.currentTimeMillis());
 		for(int i=0;i<vNum*2;i++){

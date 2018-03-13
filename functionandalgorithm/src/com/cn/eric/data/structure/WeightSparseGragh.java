@@ -43,6 +43,21 @@ public class WeightSparseGragh {
 	}
 	
 	/*
+	 * 返回节点有关的连接线
+	 */
+	public List<Edge> getConnectedDirectedEdges(int source){
+		List<Edge> list=null;
+		if(source>=0&&source<count){
+			list = new ArrayList<Edge>();
+			for(Edge edge:this.v){
+				if(edge.isSourceNode(source))
+					list.add(edge);
+			}
+		}
+		return list;
+	}
+	
+	/*
 	 * 假设只有一个联通分量
 	 * 复杂度:O(ElogE)
 	 * 利用最小堆来实现，遍历所有边

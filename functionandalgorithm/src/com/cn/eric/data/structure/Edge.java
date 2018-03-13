@@ -62,6 +62,15 @@ public class Edge<Weight extends Number> implements Comparable<Edge>{
 		return node == from || node == to? true:false;
 	}
 	
+	/*
+	 * 端点是否在连接线上
+	 * @param node
+	 * @return
+	 */
+	public boolean isSourceNode(int node){
+		return node == from;
+	}
+	
 	
 	@Override
 	public int compareTo(Edge o) {
