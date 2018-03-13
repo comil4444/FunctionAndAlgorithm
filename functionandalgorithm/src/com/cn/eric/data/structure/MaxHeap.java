@@ -2,6 +2,7 @@ package com.cn.eric.data.structure;
 
 /*
  * 最大堆：
+ * 完全二叉樹
  * 二叉堆，父节点数值大于任意子节点
  * 注意索引0位置无用，以1为起始
  */
@@ -48,6 +49,7 @@ public class MaxHeap{
 	
 	/*
 	 * 返回最大堆的最大值，同时将原来的堆去除掉最大值后重新整理成最大堆
+	 * 原理：取出最大值，然后用最后一个节点替代，然后针对这个节点做shiftDown操作即可
 	 */
 	public int extractMax(){
 		assert count>0;

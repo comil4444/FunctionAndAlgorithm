@@ -167,7 +167,7 @@ public class SparseGragh implements Gragh {
 		while(!stack.isEmpty()){
 			sb.append(stack.pop()).append("-->");
 		}
-		System.out.print(sb.substring(0, sb.lastIndexOf("-->")));
+		System.out.println(sb.substring(0, sb.lastIndexOf("-->")));
 		
 	}
 	
@@ -187,6 +187,8 @@ public class SparseGragh implements Gragh {
 		Gragh gragh = new SparseGragh(vNum,v);
 		gragh.showPath(0, 4);
 		gragh.showPathWithDepth(0, 4);
+		gragh.showPath(1, 4);
+		gragh.showPathWithDepth(1, 4);
 	}
 
 }
