@@ -1,15 +1,20 @@
 package com.cn.eric.basic.syntax;
 
+import static java.lang.System.out;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import static java.lang.System.*;
-
 public class SortedSetDemo {
 
 	public static void main(String[] args) {
+		
+		
+		
 		SortedSet<String> set = new TreeSet<String>();
 		Collections.addAll(set, "one two three four five six seven eight".split(" "));
 		print(set);
