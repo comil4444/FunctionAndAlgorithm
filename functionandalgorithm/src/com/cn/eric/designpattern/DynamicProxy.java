@@ -19,7 +19,7 @@ public class DynamicProxy extends Client implements InvocationHandler {
 		List<String> list = new ArrayList<String>();
 		list.add("1");
 		method.invoke(new Client(), args);
-		System.out.println(list);
+		System.out.println(list.size());
 		return proxy;
 	}
 
