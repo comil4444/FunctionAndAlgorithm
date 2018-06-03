@@ -2,15 +2,23 @@ package com.cn.eric.designpattern;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DynamicProxy extends Client implements InvocationHandler {
+	
+	Object tar;
 
 	public static void main(String[] args) {
-		DynamicProxy dp = new DynamicProxy();
+		iClient client = new Client();
+		DynamicProxy dp = new DynamicProxy(client);
 		dp.sayHello();
 		dp.sayHi("eric");
+	}
+	
+	public DynamicProxy(Object obj){
+		this.tar = obj;
 	}
 
 	@Override
@@ -18,18 +26,23 @@ public class DynamicProxy extends Client implements InvocationHandler {
 			throws Throwable {
 		List<String> list = new ArrayList<String>();
 		list.add("1");
-		method.invoke(new Client(), args);
+		method.invoke(Proxy.newProxyInstance(tar.getClass().getClassLoader(), this.getClass().getInterfaces(),this), args);
 		System.out.println(list.size());
 		return proxy;
 	}
 
 }
 
-class Client{
-	static void sayHi(String name){
+interface iClient{
+	void sayHi(String name);
+	void sayHello();
+}
+
+class Client implements iClient{
+	public void sayHi(String name){
 		System.out.println("Hi,"+name);
 	}
-	static void sayHello(){
+	public void sayHello(){
 		System.out.println("Hello");
 	}
 }

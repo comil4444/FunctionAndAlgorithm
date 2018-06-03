@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: WebService4RM
+Bundle-SymbolicName: WebService4RM
+Bundle-Version: 1.0.0.qualifier
+Export-Package: com.opentext.ecm.api,
+ com.opentext.ecm.services.authws,
+ com.opentext.livelink.service.core,
+ com.opentext.livelink.service.docman,
+ com.opentext.livelink.service.recman,
+ com.opentext.livelink.service.util
